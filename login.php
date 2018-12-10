@@ -21,7 +21,7 @@ if (isset($_POST['username'])) {
 	$data = $mysqli->query("SELECT NID, nama FROM dosen where NID='".$username."' AND password='".$password."'");
 	
 	if (mysqli_num_rows($data) > 0) {
-		//echo "sukses";
+		echo "sukses";
 		session_start();
 		$_SESSION['username'] = $username;
 		$_SESSION['type'] = "dosen";
