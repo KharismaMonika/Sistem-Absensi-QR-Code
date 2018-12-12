@@ -33,6 +33,7 @@
 		    header('Location:/Sistem-Absensi-QR-Code/aktifasi_kelas.php');
 		}
 	}
+
 	else if($_SESSION['type']== "mahasiswa"){
 		$mysqli = new mysqli("localhost", "root", "", "absensi");
 		$data = $mysqli->query("SELECT ID_Kuliah FROM kuliah where token='".$token."'");
@@ -40,18 +41,19 @@
 		// output data of each row
 		while($row = mysqli_fetch_assoc($data)) {
 			$id_kuliah = $row["ID_Kuliah"];
-			echo $id_kuliah;
+			//echo $id_kuliah;
 			}
-			$sql = "INSERT INTO absensi (ID_Kuliah, NRP, waktu) VALUES ('".$id_kuliah."', '".$_SESSION['username']."', '".$t."')";
+			$sql = "INSERT INTO absensi (ID_Kuliah, NRP) VALUES ('".$id_kuliah."', '".$_SESSION['username']."')";
+			
+			if ($mysqli->query($sql) === TRUE) {
+			    echo "<script> alert('SUKSES') </script>";
+			    header('Location:/Sistem-Absensi-QR-Code/absensi.php');
+			} 
+			else {
+				//echo $id_kuliah;
+			    echo "Error: " . $sql . "<br>" . $mysqli->error;
+			}
 		}
 		//$sql = "INSERT INTO kuliah (ID_Jadwal, ID_Kelas, token) VALUES ('1', '1', '".$token."')";
-
-		if ($mysqli->query($sql) === TRUE) {
-		    echo "<script> alert('SUKSES') </script>";
-		    header('Location:/Sistem-Absensi-QR-Code/absensi.php');
-		} else {
-			//echo $id_kuliah;
-		    echo "Error: " . $sql . "<br>" . $mysqli->error;
-		}
 	}
  ?>
