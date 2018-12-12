@@ -178,10 +178,8 @@
     <script type="text/javascript">
     let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
     scanner.addListener('scan', function (content) {
-      alert(content);
       //window.location.href=content;
-      id_jadwal = $('#kelas_id').val()
-      window.location.href=content+'&ID_jadwal='+id_jadwal;
+      window.location.href=content;
     });
 
     Instascan.Camera.getCameras().then(function (cameras) {

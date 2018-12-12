@@ -40,9 +40,11 @@
         session_start();
         $id_dosen = $_SESSION['username'];
         $mysqli = new mysqli("localhost", "root", "", "absensi");
-        $data = $mysqli->query("SELECT mata_kuliah.ID, mata_kuliah.Nama_MK FROM mata_kuliah JOIN jadwal ON jadwal.ID_MK = mata_kuliah.ID where jadwal.ID_Dosen='".$id_dosen."'");
-
-        $kelas_aktif = $mysqli->query("select kelas.ID, Nama_MK,Nama_Kelas from kuliah JOIN jadwal ON jadwal.ID = kuliah.ID_Jadwal JOIN kelas ON kelas.token = kuliah.token JOIN mata_kuliah ON jadwal.ID_MK = mata_kuliah.ID  where jadwal.ID_Dosen = '".$id_dosen."' ");
+        $data = $mysqli->query("SELECT jadwal.ID, mata_kuliah.Nama_MK FROM mata_kuliah JOIN jadwal ON jadwal.ID_MK = mata_kuliah.ID where jadwal.ID_Dosen='".$id_dosen."'");
+        $sql_kelas_aktif = "SELECT kelas.ID, Nama_MK,Nama_Kelas from kuliah JOIN jadwal ON jadwal.ID = kuliah.ID_Jadwal JOIN kelas ON kelas.token = kuliah.token JOIN mata_kuliah ON jadwal.ID_MK = mata_kuliah.ID  where jadwal.ID_Dosen = '".$id_dosen."' ";
+        $kelas_aktif = $mysqli->query($sql_kelas_aktif);
+        // echo $sql_kelas_aktif;
+        // die();
         //print($data);
 
     ?>
@@ -221,9 +223,10 @@
     <script type="text/javascript">
     let scanner = new Instascan.Scanner({ video: document.getElementById('preview') });
     scanner.addListener('scan', function (content) {
-      alert(content);
+      alert("sukses");
       //window.location.href=content;
       id_jadwal = $('#kelas_id').val()
+      //console.log(content+'&ID_jadwal='+id_jadwal);
       window.location.href=content+'&ID_jadwal='+id_jadwal;
     });
 

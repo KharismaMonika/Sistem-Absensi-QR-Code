@@ -40,7 +40,7 @@
         session_start();
         $id = $_SESSION['username'];
         $mysqli = new mysqli("localhost", "root", "", "absensi");
-        $data = $mysqli->query("SELECT absensi.ID_Kuliah, mata_kuliah.Nama_MK FROM absensi  JOIN kuliah ON kuliah.ID_Kuliah = absensi.ID_Kuliah JOIN jadwal ON jadwal.ID = kuliah.ID_Jadwal JOIN mata_kuliah ON mata_kuliah.ID = jadwal.ID_MK  JOIN mahasiswa ON mahasiswa.NRP = absensi.NRP  WHERE absensi.NRP ='".$id."'");
+        $data = $mysqli->query("SELECT absensi.ID_Kuliah, absensi.waktu, mata_kuliah.Nama_MK FROM absensi  JOIN kuliah ON kuliah.ID_Kuliah = absensi.ID_Kuliah JOIN jadwal ON jadwal.ID = kuliah.ID_Jadwal JOIN mata_kuliah ON mata_kuliah.ID = jadwal.ID_MK  JOIN mahasiswa ON mahasiswa.NRP = absensi.NRP  WHERE absensi.NRP ='".$id."'");
     ?>
     <div class="page-loader-wrapper">
     <!-- Page Loader -->
@@ -139,7 +139,7 @@
                                 <?php if (mysqli_num_rows($data) > 0){ 
                                     while($row = mysqli_fetch_assoc($data)){ ?>
                                 <div class="col-sm-6">
-                                    <?php echo $row['Nama_MK']; ?>
+                                    <?php echo $row['waktu']; ?> - <?php echo $row['Nama_MK']; ?>
                                     <br>
                                 </div>
                                 <div class="col-sm-6">
