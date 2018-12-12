@@ -30,6 +30,6 @@ $mysqli->query($sql);
 $sql = "UPDATE kuliah SET token='".$token_baru."' WHERE token='".$token."'";
 //echo $sql;
 $mysqli->query($sql);
-QRcode::png("/absensi/insert_kuliah.php?kelas_id=".$kelas_id."&token=".$token_baru);
+QRcode::png("/Sistem-Absensi-QR-Code/insert_kuliah.php?kelas_id=".$kelas_id."&token=".$token_baru);
 
 ?>
